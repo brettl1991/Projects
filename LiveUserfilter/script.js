@@ -3,8 +3,10 @@ const filter = document.getElementById('filter')
 
 getData()
 
+filter.addEventListener('input', (e) => filterData(e.target.value))
+
 //Initialize a list item, where we gonna put the date when we fetch
-const listItem = []
+const listItems = []
 
 async function getData() {
     const res = await fetch('https://randomuser.me/api?results=50')//response
@@ -12,12 +14,12 @@ async function getData() {
     const { results } = await res.json()
 
     //Clear results
-    results.innerHTML = ''
+    result.innerHTML = ''
 
     results.forEach(user => {
         const li = document.createElement('li')
 
-        listItem.push(li)
+        listItems.push(li)
 
         li.innerHTML = `
             <img src="${user.picture.large}" alt="${user.name.first}">
@@ -28,6 +30,16 @@ async function getData() {
         `
 
         result.appendChild(li)
+    })
+}
+
+function filterData(searchTerm) {
+    listItems.forEach(item => {
+        if(item.innerText.toLowerCase().includes(searchTerm.toLowerCase())) {
+            item.classList.remove('hide')
+        } else {
+            item.classList.add('hide')
+        }
     })
 }
 
