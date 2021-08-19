@@ -26,6 +26,8 @@ async function getData() {
                 <p>${user.location.city}, ${user.location.country}</p>
             </div>
         `
+
+        result.appendChild(li)
     })
 }
 
